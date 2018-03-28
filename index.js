@@ -6,17 +6,19 @@ const app = express()
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
-// Put all API endpoints under '/api'
-app.get('/api/words', (req, res) => {
-  const count = 5
+app.get('/api/posts', (req, res) => {
+  const posts = [
+    {
+      title: 'Post one',
+      body: 'This is words in the post body <img src=\"https://i.imgur.com/UOUq3T6.jpg\" \/>. Markup here.'
+    },
+    {
+      title: 'Post two',
+      body: 'I recently posted a very proud dog.'
+    }
+  ]
 
-  // Generate some passwords
-  const words = ['hi', 'hello', 'yes', 'I am here', 'ok']
-
-  // Return them as json
-  res.json(words)
-
-  console.log(`Sent ${count} words`)
+  res.json(posts)
 })
 
 // The "catchall" handler: for any request that doesn't
@@ -28,4 +30,4 @@ app.get('*', (req, res) => {
 const port = process.env.PORT || 5000
 app.listen(port)
 
-console.log(`Password generator listening on ${port}`)
+console.log(`API listening on ${port}`)

@@ -1,64 +1,44 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from 'react'
+import './App.css'
 
 class App extends Component {
-  // Initialize state
-  state = { words: [] }
+  state = { posts: [] }
 
-  // Fetch words after first mount
   componentDidMount() {
-    this.getWord();
+    this.getPosts()
   }
 
-  getWord = () => {
-    // Get the words and store them in state
-    fetch('/api/words')
+  getPosts = () => {
+    fetch('/api/posts')
       .then(res => res.json())
-      .then(words => this.setState({ words }));
+      .then(posts => this.setState({ posts }))
   }
 
   render() {
-    const { words } = this.state;
+    const { posts } = this.state
 
     return (
       <div className="App">
-        {/* Render the words if we have them */}
-        {words.length ? (
+        {posts.length ? (
           <div>
-            <h1>5 words.</h1>
-            <ul className="words">
-              {/*
-                Generally it's bad to use "index" as a key.
-                It's ok for this example because there will always
-                be the same number of words, and they never
-                change positions in the array.
-              */}
-              {words.map((word, index) =>
+            <h1>I'm workin on it gimme a break</h1>
+            <ul className="Posts">
+              {posts.slice(0).reverse().map((post, index) =>
                 <li key={index}>
-                  {word}
+                  <h2>{post.title}</h2>
+                  <section dangerouslySetInnerHTML={ {__html: post.body} }></section>
                 </li>
               )}
             </ul>
-            <button
-              className="more"
-              onClick={this.getWord}>
-              Get More
-            </button>
           </div>
         ) : (
-          // Render a helpful message otherwise
           <div>
-            <h1>No words :(</h1>
-            <button
-              className="more"
-              onClick={this.getWord}>
-              Try Again?
-            </button>
+            <h1>No posts</h1>
           </div>
         )}
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
