@@ -1,7 +1,6 @@
-// Update with your config settings.
+console.log(process.env.DATABASE_URL)
 
 module.exports = {
-
   development: {
     client: 'postgresql',
     connection: {
@@ -30,7 +29,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'my_db',
+      database: process.env.DATABASE_URL,
       user:     'username',
       password: 'password'
     },
