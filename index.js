@@ -1,24 +1,29 @@
 const express = require('express')
 const path = require('path')
 
-const app = express()
+const app = module.exports = express()
+const postDb = require('./db/postModels')
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')))
 
 app.get('/api/posts', (req, res) => {
-  const posts = [
-    {
-      title: 'Post one',
-      body: 'This is words in the post body <img src=\"https://i.imgur.com/UOUq3T6.jpg\" \/>. Markup here.'
-    },
-    {
-      title: 'Post two',
-      body: 'I recently posted a very proud dog.'
-    }
-  ]
+  postDb.Posts.query().select('*')
+    .then((result) => {
+      res.json(result)
+    })
+})
 
-  res.json(posts)
+app.get('/api/addPost', (req, res) => {
+  const {title, body} = req
+  const post = new Post({
+    post_title: title,
+    post_body: body
+  })
+
+  post.save().then((ids) => {
+    console.log(ids)
+  })
 })
 
 // The "catchall" handler: for any request that doesn't
