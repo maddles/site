@@ -1,7 +1,6 @@
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Home } from 'components'
-import * as postActions from 'actions/postActions'
+import { Auth } from 'components'
 import * as authActions from 'actions/authActions'
 
 const mapStateToProps = (store) => {
@@ -11,20 +10,18 @@ const mapStateToProps = (store) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => {
-  const boundPostActions = bindActionCreators(postActions, dispatch)
   const boundAuthActions = bindActionCreators(authActions, dispatch)
 
   const actionProps = {
-    ...boundPostActions,
     ...boundAuthActions,
     dispatch}
 
   return actionProps
 }
 
-const HomeContainer = connect(
+const AuthContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Home)
+)(Auth)
 
-export default HomeContainer
+export default AuthContainer

@@ -4,11 +4,11 @@ const KnexOrmConstructor = KnexOrm.default
 
 const Database = new KnexOrmConstructor(knexWrapper)
 
-class Post extends Database.Model {
+class User extends Database.Model {
   static get primaryKey() { return 'id' }
 
   static get whitelistedProps() {
-    return ['id', 'post_title', 'post_body']
+    return ['id', 'username', 'password', 'type']
   }
 
   static get jsonSchema () {
@@ -16,32 +16,33 @@ class Post extends Database.Model {
       type: 'object',
       properties: {
         id: { type: 'integer'},
-        post_title: { type: 'string' },
-        post_body: { type: 'string' }
+        username: { type: 'string' },
+        password: { type: 'string' },
+        type: { type: 'string' }
       },
-      required: ['post_title'],
+      required: ['username'],
     }
   }
 
   static get related () {
     return {
-      post: this.belongsTo('Posts'),
+      user: this.belongsTo('Users'),
     };
   }
 }
 
-class Posts extends Database.Model {
+class Users extends Database.Model {
   static get related() {
     return {
-      posts: this.hasMany('Post'),
+      users: this.hasMany('User'),
     }
   }
 }
 
-Database.register(Post)
-Database.register(Posts)
+Database.register(User)
+Database.register(Users)
 
 var exports = module.exports = {}
 
-exports.Post = Post
-exports.Posts = Posts
+exports.User = User
+exports.Users = Users

@@ -6,7 +6,7 @@ const Posts = (props) => {
     {props.posts ? (
       <div>
         {props.posts.slice(0).reverse().map((post) =>
-          <Post post={post} />
+          <Post post={post} key={post.id} />
         )}
       </div>
     ) : (

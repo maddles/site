@@ -1,5 +1,3 @@
-import { Map, OrderedMap, fromJS } from 'immutable'
-
 import {FETCHING_POSTS, FETCH_POSTS_COMPLETE} from 'actions/postActions'
 
 const initialState = {
